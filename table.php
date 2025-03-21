@@ -66,13 +66,17 @@ $users = $requete->fetchAll(PDO::FETCH_ASSOC);
                     <td class="border-2 border-solid border-green-500">
                         <img src="data:image/png;base64,<?php echo base64_encode($user['images'] ?? ''); ?>"
                             alt="Image de <?php echo htmlspecialchars($user['name'] ?? ''); ?>"
-                            style="width: 100px; height: auto;">
+                            style="width: 80px; height: 80px;">
                     </td>
                     <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["sexe"])  ?></td>
                     <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["language"])   ?></td>
                     <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["continent"])  ?></td>
-                    <td class="border-2 border-solid border-green-500"><a href="update.php:id=<?php echo $user["id"]    ?> name='update' ">Modifier</a></td>
-                    <td class="border-2 border-solid border-green-500"><a href="delete.php:id=<?php $user["id"]  ?> name='delete' ">Delete</a></td>
+                    <td class="border-2 border-solid border-green-500">
+                        <a href="update.php?id=<?php echo urlencode($user['id']); ?>" name="update">Update</a>
+                    </td>
+                    <td class="border-2 border-solid border-green-500">
+                        <a href="delete.php?id=<?php echo urlencode($user['id']); ?>" name="delete">Delete</a>
+                    </td>
 
                 </tr>
             <?php endforeach; ?>
