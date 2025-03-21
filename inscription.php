@@ -1,71 +1,159 @@
 <?php
 
-require_once './database/connexion.php';
-if (!empty($_POST)) {
-    if (
-        isset($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['image'], $_POST['sexe'], $_POST['language'], $_POST['continent'])
-        && !empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['email']) && !empty($_POST['password'])  && !empty($_POST['image']) && !empty($_POST['languages']) && !empty($_POST['continent'])
-    ) {
+// require_once './database/connexion.php';
+// if (!empty($_POST)) {
+//     echo "hey";
+//     if (
+//         isset(
+//             $_POST['name'],
+//             $_POST['surname'],
+//             $_POST['email'],
+//             $_POST['password'],
+//             //  $_POST['image']
+//             $_POST['sexe']
+//             //  $_POST['language'], $_POST['continent']
+//         )
+//         && !empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['email']) && !empty($_POST['password'])
+//         // && !empty($_POST['image'])
+//         //  && !empty($_POST['languages'])
+//         //  && !empty($_POST['continent'])
+//     ) {
+//         if (strlen($_POST['name']) > 10) {
+//             echo "Name should not exceed 10 characters.";
+//         }
+//         $name = htmlspecialchars($_POST['name']);
+//         if (strlen($_POST['surname']) > 10) {
+//             echo "Surname should not exceed 10 characters.";
+//         }
 
-        if (strlen($_POST['name'] > 10)) {
-            echo "Name should not exceed 10 characters.";
+//         $surname = htmlspecialchars(trim($_POST['surname']));
+
+//         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+//             echo "Invalid email format";
+//         }
+//         $email = htmlspecialchars($_POST['email']);
+
+//         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+//         if (! isset($_POST['sexe'])) {
+//             echo "Please select your  sexe";
+//         }
+//         $sexe = ($_POST['sexe']);
+//         // if (! isset($_POST["language"])) {
+//         //     echo "Please select your languages";
+//         // }
+//         // $language = implode(',', $_POST["language"]);
+//         // if (! isset($_POST['continent'])) {
+//         //     echo "Please select your continent";
+//         // }
+//         // $continent = htmlspecialchars(trim($_POST['continent']));
+
+//         // if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+//         //     $image_name = $_FILES["image"]["name"];
+//         //     $bin = file_get_contents($_FILES["file"]["tmp_name"]);
+//         //     $image_size = $_FILES["image"]["size"];
+
+//         //     $image_type = $_FILES["image"]["type"];
+//         //     $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+
+//         //     // $allowed_image_types = array("jpg", "jpeg", "png");
+
+//         //     // Vérification de la taille de l'image
+//         //     if ($image_size > 3 * 1024 * 1024) { // 3 Mo
+//         //         die("L'image ne doit pas dépasser 3 Mo.");
+//         //     }
+//         // }
+
+//         $sql = "INSERT INTO `users` (`name`, `surname`,`email`, `password`, sexe
+    
+   
+
+//         ) VALUES(:name, :surname, :email, '$password', $sexe
+   
+     
+     
+//         )";
+//         $requete = $db->prepare($sql);
+//         $requete->bindValue(':name', $name, PDO::PARAM_STR);
+//         $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
+//         $requete->bindValue(':email', $email, PDO::PARAM_STR);
+//         // $requete->bindValue(':images', $bin, PDO::PARAM_STR);
+//         $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+//         // $requete->bindValue(':language', $language, PDO::PARAM_STR);
+//         // $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
+//         $requete->execute();
+//         echo "Inscription réussie";
+//     } else {
+//         echo "Veuillez remplir tous les champs";
+//     }
+// }
+
+
+
+
+
+
+
+
+require_once './database/connexion.php';
+
+if (!empty($_POST)) {
+    echo "hey";
+
+    if (
+        isset($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['sexe']) &&
+        !empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['email']) && !empty($_POST['password'])
+    ) {
+        if (strlen($_POST['name']) > 10) {
+            die("Name should not exceed 10 characters.");
         }
+
         $name = htmlspecialchars($_POST['name']);
-        if (strlen($_POST['surname'] > 10)) {
-            echo "Surname should not exceed 10 characters.";
+
+        if (strlen($_POST['surname']) > 10) {
+            die("Surname should not exceed 10 characters.");
         }
 
         $surname = htmlspecialchars(trim($_POST['surname']));
 
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email format";
+            die("Invalid email format");
         }
+
         $email = htmlspecialchars($_POST['email']);
-
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        if (! isset($_POST['sexe'])) {
-            echo "Please select your  sexe";
-        }
-        $sexe = htmlspecialchars(trim($_POST['sexe']));
-        if (! isset($_POST["language"])) {
-            echo "Please select your languages";
-        }
-        $language = implode(',', $_POST["language"]);
-        if (! isset($_POST['continent'])) {
-            echo "Please select your continent";
-        }
-        $continent = htmlspecialchars(trim($_POST['continent']));
 
-        if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-            $image_name = $_FILES["image"]["name"];
-            $bin = file_get_contents($_FILES["file"]["tmp_name"]);
-            $image_size = $_FILES["image"]["size"];
-
-            $image_type = $_FILES["image"]["type"];
-            $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-
-            // $allowed_image_types = array("jpg", "jpeg", "png");
-
-            // Vérification de la taille de l'image
-            if ($image_size > 3 * 1024 * 1024) { // 3 Mo
-                die("L'image ne doit pas dépasser 3 Mo.");
-            }
+        if (!isset($_POST['sexe'])) {
+            die("Please select your sexe");
         }
-        $sql = "INSERT INTO `users` (`name`, `surname`,`email`, `password`, `images`, `sexe`, `language`, `continent`) VALUES(:name, :surname, :email, '$password', :images, :sexe, :language, :continent)";
+
+        $sexe = $_POST['sexe'];
+
+        $sql = "INSERT INTO `users` (`name`, `surname`, `email`, `password`, `sexe`)
+                VALUES (:name, :surname, :email, :password, :sexe)";
+
         $requete = $db->prepare($sql);
         $requete->bindValue(':name', $name, PDO::PARAM_STR);
         $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
         $requete->bindValue(':email', $email, PDO::PARAM_STR);
-        $requete->bindValue(':images', $bin, PDO::PARAM_STR);
+        $requete->bindValue(':password', $password, PDO::PARAM_STR);
         $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
-        $requete->bindValue(':language', $language, PDO::PARAM_STR);
-        $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
-        $requete->execute();
-        echo "Inscription réussie";
+
+        if ($requete->execute()) {
+            echo "Inscription réussie";
+        } else {
+            echo "Erreur lors de l'inscription";
+        }
     } else {
         echo "Veuillez remplir tous les champs";
     }
 }
+
+?>
+
+
+
+
+
 
 ?>
 
@@ -91,7 +179,7 @@ if (!empty($_POST)) {
         <div class="flex flex-col gap-[10px]  pt-[50px]">
             <div class="flex flex-col gap-[2px]">
                 <label for="name" class=" ">Enter your name</label>
-                <input type="text" required name="name" id="name" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Simo Tsebo" >
+                <input type="text" required name="name" id="name" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Simo Tsebo">
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="" class="">Enter your surname</label>
@@ -105,24 +193,24 @@ if (!empty($_POST)) {
                 <label for="password" class="">Enter your password</label>
                 <input type="password" name="password" id="password" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Bafoussam@%$" required>
             </div>
-            <div class="flex flex-col gap-[2px]">
+            <!-- <div class="flex flex-col gap-[2px]">
                 <label for="image" class="">Enter your image</label>
                 <input type="file" name="image" id="image" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="" required>
-            </div>
+            </div> -->
 
         </div>
         <div class="">
             <p class="py-[20px]">Quel est votre sexe</p>
             <div class="flex gap-[15px]">
                 <label for="masculin">maxculin</label>
-                <input type="radio" name="sexe" id="masculin">
+                <input type="radio" name="sexe" id="masculin" value="masculin">
                 <label for="feminin">feminin</label>
-                <input type="radio" name="sexe" id="feminin">
+                <input type="radio" name="sexe" id="feminin" value="feminin">
             </div>
         </div>
-        <div class="pb-[20px]">
-            <p class="py-[20px]">Quel est votre language preferé?</p>
-            <div class="flex gap-[15px]">
+        <!-- <div class="pb-[20px]"> -->
+        <!-- <p class="py-[20px]">Quel est votre language preferé?</p> -->
+        <!-- <div class="flex gap-[15px]">
                 <label for="Javascript">Javascript</label>
                 <input type="checkbox" name="language[ ]" id="Javascript" value="Javascript">
                 <label for="Python">Python</label>
@@ -131,10 +219,10 @@ if (!empty($_POST)) {
                 <input type="checkbox" name="language[ ]" id="C++" value="C++">
                 <label for="Java">Java</label>
                 <input type="checkbox" name="language[ ]" id="Java" value="Java">
-            </div>
+            </div> -->
 
-        </div>
-        <select name="continent" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]">
+        <!-- </div> -->
+        <!-- <select name="continent" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]">
             <option value="">Choose your continent</option>
             <option value="Cameroon">Africa</option>
             <option value="France">America</option>
@@ -143,7 +231,7 @@ if (!empty($_POST)) {
             <option value="Canada">Europe</option>
 
 
-        </select><br>
+        </select><br> -->
         <input type="submit" name="submit" value="Envoyer" class="w-[400px] border-2 border-solid border-green-500 p-[7px] mt-[20px] bg-green-500 text-white hover:bg-green-700 cursor-pointer">
     </form>
 </body>
