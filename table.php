@@ -38,17 +38,17 @@ $users = $requete->fetchAll(PDO::FETCH_ASSOC);
     <table class="border-2 border-solid border-green-500">
         <thead>
             <tr>
-                <th class="border-2 border-solid border-green-500">Id</th>
-                <th class="border-2 border-solid border-green-500">Name</th>
-                <th class="border-2 border-solid border-green-500">Surname</th>
-                <th class="border-2 border-solid border-green-500">email</th>
-                <th class="border-2 border-solid border-green-500">password</th>
-                <th class="border-2 border-solid border-green-500">images</th>
-                <th class="border-2 border-solid border-green-500">sexe</th>
-                <th class="border-2 border-solid border-green-500">languages</th>
-                <th class="border-2 border-solid border-green-500">continent</th>
-                <th class="border-2 border-solid border-green-500">Modifier</th>
-                <th class="border-2 border-solid border-green-500">Supprimer</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">Id</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">Name</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">Surname</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">email</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">password</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">images</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">sexe</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">languages</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">continent</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">Modifier</th>
+                <th class="border-2 border-solid border-green-500 p-[9px]">Supprimer</th>
 
             </tr>
         </thead>
