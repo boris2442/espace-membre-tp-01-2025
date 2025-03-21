@@ -164,14 +164,14 @@ if (!empty($_POST)) {
 
 
         $sql = "INSERT INTO `users` (`name`, `surname`, `email`, `password`, `images`,`sexe`, `language`, `continent`)
-                VALUES (:name, :surname, :email, :password, :image, :sexe, :language, :continent)";
+                VALUES (:name, :surname, :email, :password, :images, :sexe, :language, :continent)";
 
         $requete = $db->prepare($sql);
         $requete->bindValue(':name', $name, PDO::PARAM_STR);
         $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
         $requete->bindValue(':email', $email, PDO::PARAM_STR);
         $requete->bindValue(':password', $password, PDO::PARAM_STR);
-        $requete->bindValue(':image', $image, PDO::PARAM_LOB);  // PDO::PARAM_LOB pour blob (Binary Large OBject)
+        $requete->bindValue(':images', $image, PDO::PARAM_LOB);  // PDO::PARAM_LOB pour blob (Binary Large OBject)
         $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
         $requete->bindValue(":language", $language, PDO::PARAM_STR);
         $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
@@ -210,9 +210,12 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <h1 class="text-3xl font-bold pt-[100px]  text-green-500 pl-[100px] ">
-        Inscrivez vous à la newsletter
-    </h1>
+    <div class="flex justify-center items-center pt-[100px] gap-[15px]">
+        <h1 class="text-3xl font-bold  text-green-500 pl-[100px] ">
+            Inscrivez vous à la newsletter
+        </h1>
+        <p class="text-3xl font-bold  text-green-500 "><a href="table.php">Listes des utilisateurs</a></p>
+    </div>
     <form action="" method="post" enctype="multipart/form-data" class="pl-[100px] flex justify-center items-center">
         <div class="grid grid-cols-2  pt-[50px] max-w-[800px] gap-[20px]">
             <div class="flex flex-col gap-[2px]">
