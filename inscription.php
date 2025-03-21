@@ -1,5 +1,6 @@
 <?php
-    require_once './database/connexion.php';
+
+require_once './database/connexion.php';
 if (!empty($_POST)) {
     if (
         isset($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['image'], $_POST['sexe'], $_POST['language'], $_POST['continent'])
@@ -9,7 +10,7 @@ if (!empty($_POST)) {
         if (strlen($_POST['name'] > 10)) {
             echo "Name should not exceed 10 characters.";
         }
-        $name = htmlspecialchars(trim($_POST['name']));
+        $name = htmlspecialchars($_POST['name']);
         if (strlen($_POST['surname'] > 10)) {
             echo "Surname should not exceed 10 characters.";
         }
@@ -19,31 +20,52 @@ if (!empty($_POST)) {
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             echo "Invalid email format";
         }
-        $email = htmlspecialchars(trim($_POST['email']));
+        $email = htmlspecialchars($_POST['email']);
 
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        if (! isset($_POST['sexe'])) {
+            echo "Please select your  sexe";
+        }
+        $sexe = htmlspecialchars(trim($_POST['sexe']));
+        if (! isset($_POST["language"])) {
+            echo "Please select your languages";
+        }
+        $language = implode(',', $_POST["language"]);
+        if (! isset($_POST['continent'])) {
+            echo "Please select your continent";
+        }
+        $continent = htmlspecialchars(trim($_POST['continent']));
 
-var_dump($_POST['image']);
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+            $image_name = $_FILES["image"]["name"];
+            $bin = file_get_contents($_FILES["file"]["tmp_name"]);
+            $image_size = $_FILES["image"]["size"];
 
+            $image_type = $_FILES["image"]["type"];
+            $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
 
+            // $allowed_image_types = array("jpg", "jpeg", "png");
 
-
-
-
-
-
-
+            // Vérification de la taille de l'image
+            if ($image_size > 3 * 1024 * 1024) { // 3 Mo
+                die("L'image ne doit pas dépasser 3 Mo.");
+            }
+        }
+        $sql = "INSERT INTO `users` (`name`, `surname`,`email`, `password`, `images`, `sexe`, `language`, `continent`) VALUES(:name, :surname, :email, '$password', :images, :sexe, :language, :continent)";
+        $requete = $db->prepare($sql);
+        $requete->bindValue(':name', $name, PDO::PARAM_STR);
+        $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
+        $requete->bindValue(':email', $email, PDO::PARAM_STR);
+        $requete->bindValue(':images', $bin, PDO::PARAM_STR);
+        $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        $requete->bindValue(':language', $language, PDO::PARAM_STR);
+        $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
+        $requete->execute();
+        echo "Inscription réussie";
+    } else {
+        echo "Veuillez remplir tous les champs";
     }
 }
-
-
-
-
-
-
-
-
-
 
 ?>
 
@@ -68,24 +90,24 @@ var_dump($_POST['image']);
     <form action="" method="post" enctype="multipart/form-data" class="pl-[100px]">
         <div class="flex flex-col gap-[10px]  pt-[50px]">
             <div class="flex flex-col gap-[2px]">
-                <label for="name" class=" ">Enteryour name</label>
-                <input type="text" name="name" id="name" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Simo Tsebo">
+                <label for="name" class=" ">Enter your name</label>
+                <input type="text" required name="name" id="name" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Simo Tsebo" >
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="" class="">Enter your surname</label>
-                <input type="text" name="surname" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Boris Aubin">
+                <input type="text" name="surname" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Boris Aubin" required>
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="email" class="">Enter your email</label>
-                <input type="email" name="email" id="email" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="aubinborissimotsebo@gmail.com">
+                <input type="email" name="email" id="email" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="aubinborissimotsebo@gmail.com" required>
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="password" class="">Enter your password</label>
-                <input type="password" name="password" id="password" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Bafoussam@%$">
+                <input type="password" name="password" id="password" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Bafoussam@%$" required>
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="image" class="">Enter your image</label>
-                <input type="file" name="image" id="image" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="">
+                <input type="file" name="image" id="image" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="" required>
             </div>
 
         </div>
@@ -102,13 +124,13 @@ var_dump($_POST['image']);
             <p class="py-[20px]">Quel est votre language preferé?</p>
             <div class="flex gap-[15px]">
                 <label for="Javascript">Javascript</label>
-                <input type="checkbox" name="language[ ]" id="Javascript" value="">
+                <input type="checkbox" name="language[ ]" id="Javascript" value="Javascript">
                 <label for="Python">Python</label>
-                <input type="checkbox" name="language[ ]" id="Python" value="">
+                <input type="checkbox" name="language[ ]" id="Python" value="Python">
                 <label for="C++">C++</label>
-                <input type="checkbox" name="language[ ]" id="C++" value="">
+                <input type="checkbox" name="language[ ]" id="C++" value="C++">
                 <label for="Java">Java</label>
-                <input type="checkbox" name="language[ ]" id="Java" value="">
+                <input type="checkbox" name="language[ ]" id="Java" value="Java">
             </div>
 
         </div>
