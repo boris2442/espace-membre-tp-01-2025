@@ -1,3 +1,52 @@
+<?php
+    require_once './database/connexion.php';
+if (!empty($_POST)) {
+    if (
+        isset($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['password'], $_POST['image'], $_POST['sexe'], $_POST['language'], $_POST['continent'])
+        && !empty($_POST['name']) && !empty($_POST['surname']) && !empty($_POST['email']) && !empty($_POST['password'])  && !empty($_POST['image']) && !empty($_POST['languages']) && !empty($_POST['continent'])
+    ) {
+
+        if (strlen($_POST['name'] > 10)) {
+            echo "Name should not exceed 10 characters.";
+        }
+        $name = htmlspecialchars(trim($_POST['name']));
+        if (strlen($_POST['surname'] > 10)) {
+            echo "Surname should not exceed 10 characters.";
+        }
+
+        $surname = htmlspecialchars(trim($_POST['surname']));
+
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email format";
+        }
+        $email = htmlspecialchars(trim($_POST['email']));
+
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+var_dump($_POST['image']);
+
+
+
+
+
+
+
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+?>
+
 <!doctype html>
 <html>
 
@@ -13,7 +62,7 @@
 </head>
 
 <body>
-    <h1 class="text-3xl font-bold pt-[30px] text-center text-green-500">
+    <h1 class="text-3xl font-bold pt-[100px]  text-green-500 pl-[100px] ">
         Inscrivez vous à la newsletter
     </h1>
     <form action="" method="post" enctype="multipart/form-data" class="pl-[100px]">
@@ -24,7 +73,7 @@
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="" class="">Enter your surname</label>
-                <input type="text" name="" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Boris Aubin">
+                <input type="text" name="surname" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]" placeholder="Boris Aubin">
             </div>
             <div class="flex flex-col gap-[2px]">
                 <label for="email" class="">Enter your email</label>
@@ -43,37 +92,37 @@
         <div class="">
             <p class="py-[20px]">Quel est votre sexe</p>
             <div class="flex gap-[15px]">
-            <label for="masculin">maxculin</label>
-            <input type="radio" name="sexe" id="masculin">
-            <label for="feminin">feminin</label>
-            <input type="radio" name="sexe" id="feminin">
+                <label for="masculin">maxculin</label>
+                <input type="radio" name="sexe" id="masculin">
+                <label for="feminin">feminin</label>
+                <input type="radio" name="sexe" id="feminin">
             </div>
         </div>
-        <div class="">
+        <div class="pb-[20px]">
             <p class="py-[20px]">Quel est votre language preferé?</p>
             <div class="flex gap-[15px]">
-            <label for="Javascript">Javascript</label>
-            <input type="checkbox" name="" id="Javascript" value="">
-            <label for="Python">Python</label>
-            <input type="checkbox" name="" id="Python" value="">
-            <label for="C++">C++</label>
-            <input type="checkbox" name="" id="C++" value="">
-            <label for="Java">Java</label>
-            <input type="checkbox" name="" id="Java" value="">
+                <label for="Javascript">Javascript</label>
+                <input type="checkbox" name="language[ ]" id="Javascript" value="">
+                <label for="Python">Python</label>
+                <input type="checkbox" name="language[ ]" id="Python" value="">
+                <label for="C++">C++</label>
+                <input type="checkbox" name="language[ ]" id="C++" value="">
+                <label for="Java">Java</label>
+                <input type="checkbox" name="language[ ]" id="Java" value="">
             </div>
-            
-        </div>
-<select name="" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]">
-    <option value="">Choose your continent</option>
-    <option value="Cameroon">Africa</option>
-    <option value="France">America</option>
-    <option value="Germany">Asie</option>
-    <option value="USA">USA</option>
-    <option value="Canada">Europe</option>
-    
 
-</select><br>
-<input type="submit" value="Envoyer" class="w-[400px] border-2 border-solid border-green-500 p-[7px] mt-[20px] bg-green-500 text-white J">
+        </div>
+        <select name="continent" id="" class="w-[400px] border-2 border-solid border-green-500 p-[7px]">
+            <option value="">Choose your continent</option>
+            <option value="Cameroon">Africa</option>
+            <option value="France">America</option>
+            <option value="Germany">Asie</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Europe</option>
+
+
+        </select><br>
+        <input type="submit" name="submit" value="Envoyer" class="w-[400px] border-2 border-solid border-green-500 p-[7px] mt-[20px] bg-green-500 text-white hover:bg-green-700 cursor-pointer">
     </form>
 </body>
 
