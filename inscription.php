@@ -69,24 +69,33 @@ if (!empty($_POST)) {
         }
 
 
-        $sql = "INSERT INTO `users` (`name`, `surname`, `email`, `password`, `images`,`sexe`, `language`, `continent`)
-                VALUES (:name, :surname, :email, :password, :images, :sexe, :language, :continent)";
-
+        // $sql = "INSERT INTO `users` (`name`, `surname`, `email`, `password`, `images`,`sexe`, `language`, `continent`)
+        //         VALUES (:name, :surname, :email, :password, :images, :sexe, :language, :continent)";
+        $sql = "INSERT INTO users (name, surname, email, password,images, sexe, language,continent ) 
+        VALUES (:name, :surname, :email, :password,:image, :sexe, :language, :continent )";
         $requete = $db->prepare($sql);
-        $requete->bindValue(':name', $name, PDO::PARAM_STR);
-        $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
-        $requete->bindValue(':email', $email, PDO::PARAM_STR);
-        $requete->bindValue(':password', $password, PDO::PARAM_STR);
-        $requete->bindValue(':images', $image, PDO::PARAM_LOB);  // PDO::PARAM_LOB pour blob (Binary Large OBject)
-        $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
-        $requete->bindValue(":language", $language, PDO::PARAM_STR);
-        $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
-
-        if ($requete->execute()) {
-            echo "Inscription réussie";
-        } else {
-            echo "Erreur lors de l'inscription";
-        }
+        // $requete->bindValue(':name', $name, PDO::PARAM_STR);
+        // $requete->bindValue(':surname', $surname, PDO::PARAM_STR);
+        // $requete->bindValue(':email', $email, PDO::PARAM_STR);
+        // $requete->bindValue(':password', $password, PDO::PARAM_STR);
+        // $requete->bindValue(':images', $image, PDO::PARAM_LOB);  // PDO::PARAM_LOB pour blob (Binary Large OBject)
+        // $requete->bindValue(':sexe', $sexe, PDO::PARAM_STR);
+        // $requete->bindValue(":language", $language, PDO::PARAM_STR);
+        // $requete->bindValue(':continent', $continent, PDO::PARAM_STR);
+        $requete->bindValue(":name", $name, PDO::PARAM_STR);
+        $requete->bindValue(":surname", $surname, PDO::PARAM_STR);
+        $requete->bindValue(":email", $email, PDO::PARAM_STR);
+        $requete->bindValue(":password", $password, PDO::PARAM_STR);
+        $requete->bindValue(":image", $image, PDO::PARAM_LOB);
+        $requete->bindValue(":sexe", $sexe);
+        $requete->bindValue(":language", $language);
+        $requete->bindValue(":continent", $continent);
+        $requete->execute();
+        // if ($requete->execute()) {
+        //     echo "Inscription réussie";
+        // } else {
+        //     echo "Erreur lors de l'inscription";
+        // }
     } else {
         echo "Veuillez remplir tous les champs";
     }

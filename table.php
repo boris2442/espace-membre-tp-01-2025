@@ -57,7 +57,7 @@ $users = $requete->fetchAll(PDO::FETCH_ASSOC);
             foreach ($users as $user):
             ?>
                 <tr>
-                    <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["id"]) ?></td>
+                    <td class="border-2 border-solid border-green-500"><?php echo ($user["id"]) ?></td>
                     <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["name"]) ?></td>
                     <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["surname"]) ?></td>
 

@@ -7,6 +7,7 @@ $dsn = "mysql:dbname=" . DBNAME . ";host=" . DBHOST;
 
 try {
     $db = new PDO($dsn, DBUSER, DBPASS);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("SET NAMES utf8");
     
     echo "connexion a la database reussie";
