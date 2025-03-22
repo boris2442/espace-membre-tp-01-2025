@@ -90,12 +90,13 @@ if (!empty($_POST)) {
         $requete->bindValue(":sexe", $sexe);
         $requete->bindValue(":language", $language);
         $requete->bindValue(":continent", $continent);
-        $requete->execute();
-        // if ($requete->execute()) {
-        //     echo "Inscription réussie";
-        // } else {
-        //     echo "Erreur lors de l'inscription";
-        // }
+        // $requete->execute();
+        if ($requete->execute()) {
+            echo "Inscription réussie";
+        } else {
+            echo "Erreur lors de l'inscription";
+        }
+        header("location:connexion.php");
     } else {
         echo "Veuillez remplir tous les champs";
     }
@@ -108,23 +109,11 @@ if (!empty($_POST)) {
 
 
 
+<?php
+require_once './require/header.php';
 ?>
 
-<!doctype html>
-<html>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Parkinsans:wght@300..800&family=Playwrite+HU:wght@100..400&family=Playwrite+PE+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-
-<body>
     <div class="flex justify-center items-center pt-[100px] gap-[15px]">
         <h1 class="text-3xl font-bold  text-green-500 pl-[100px] ">
             Inscrivez vous à la newsletter
@@ -194,6 +183,6 @@ if (!empty($_POST)) {
             <input type="submit" name="submit" value="Envoyer" class="w-[300px] border-2 border-solid border-green-500 p-[7px] mt-[20px] bg-green-500 text-white hover:bg-green-700 cursor-pointer">
         </div>
     </form>
-</body>
-
-</html>
+    <?php
+require_once "./require/footer.php";
+?>
