@@ -37,7 +37,7 @@ require_once './require/header.php';
             <th class="border-2 border-solid border-green-500 p-[9px]">sexe</th>
             <th class="border-2 border-solid border-green-500 p-[9px]">languages</th>
             <th class="border-2 border-solid border-green-500 p-[9px]">continent</th>
-            <th class="border-2 border-solid border-green-500 p-[9px]">Modifier</th>
+            <th class="border-2 border-solid border-green-500 p-[9px] ">Modifier</th>
             <th class="border-2 border-solid border-green-500 p-[9px]">Supprimer</th>
 
         </tr>
@@ -61,11 +61,11 @@ require_once './require/header.php';
                 <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["sexe"])  ?></td>
                 <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["language"])   ?></td>
                 <td class="border-2 border-solid border-green-500"><?php echo htmlspecialchars($user["continent"])  ?></td>
-                <td class="border-2 border-solid border-green-500">
-                    <a href="update.php?id=<?php echo urlencode($user['id']); ?>" name="update">Update</a>
+                <td class="border-2 border-solid border-green-500 ">
+                    <a href="update.php?id=<?php echo urlencode($user['id']); ?>" name="update" class="bg-green-500 p-[7px] mx-auto text-white rounded-[4px] w-[100%] hover:text-green-100">Update</a>
                 </td>
                 <td class="border-2 border-solid border-green-500">
-                    <a href="delete.php?id=<?php echo urlencode($user['id']); ?>" name="delete">Delete</a>
+                    <a href="delete.php?id=<?php echo urlencode($user['id']); ?>" name="delete" class="bg-red-500 p-[7px] mx-auto text-white rounded-[4px] w-[100%] hover:text-red-100">Delete</a>
                 </td>
 
             </tr>
